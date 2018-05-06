@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="search_type">
+        <item>图书,图书名称或图书编号,100</item>
+        <item>学生,学生名称或学生编号,110</item>
+    </string-array>
+</resources>

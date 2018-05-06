@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">图书馆系统</string>
+    <string name="password">密　码：</string>
+    <string name="username">用户名：</string>
+    <string name="login">登录</string>
+    <string name="input_username_hint">请输入用户名</string>
+    <string name="activity_name_manager">管理员</string>
+    <string name="input_password_hint">请输入密码</string>
+    <string name="library_about">本馆介绍</string>
+    <string name="confirm_choice_dialog_positive">确认</string>
+    <string name="search_type_dialog_title">搜索类型</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sys_setting">系统管理</string>
+    <string name="student_manage">学生管理</string>
+    <string name="book_manage">图书管理</string>
+    <string name="menu_text_base_config">基础配置</string>
+    <string name="menu_text_blacklist">黑名单</string>
+    <string name="menu_text_overdue_list">逾期名单</string>
+    <string name="menu_text_batch_into">批量导入</string>
+    <string name="menu_text_single_into">手动录入</string>
+    <string name="menu_text_register_manage">借阅/归还</string>
+</resources>

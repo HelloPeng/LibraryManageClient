@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <!--图书馆管理-->
+        <android.support.v7.widget.CardView style="@style/CardMenuGroupStyle">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MenuGroupTitleStyle"
+                    android:text="@string/book_manage" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+                    <!--手动单个录入图书-->
+                    <LinearLayout
+                        android:id="@+id/ll_book_single_into"
+                        style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_book_single_into" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_single_into" />
+
+                    </LinearLayout>
+                    <!--自动批量导入图书-->
+                    <LinearLayout
+                        android:id="@+id/ll_book_batch_into"
+                        style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_book_batch_into" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_batch_into" />
+
+                    </LinearLayout>
+                    <!--借阅或归还登记-->
+                    <LinearLayout
+                        android:id="@+id/ll_book_register_manage"
+                        style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_register_manage" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_register_manage" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView style="@style/CardMenuGroupStyle">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MenuGroupTitleStyle"
+                    android:text="@string/student_manage" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--手动录入单个学生信息-->
+                    <LinearLayout style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_student_single_into" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_single_into" />
+
+                    </LinearLayout>
+                    <!--批量自动导入学生信息-->
+                    <LinearLayout style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_student_batch_into" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_batch_into" />
+
+                    </LinearLayout>
+                    <!--借书逾期名单-->
+                    <LinearLayout style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_overdue_list" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_overdue_list" />
+
+                    </LinearLayout>
+                    <!--借书黑名单（黑名单下的人不可再次借阅）-->
+                    <LinearLayout style="@style/MenuItemAverageStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_blacklist" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_blacklist" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView style="@style/CardMenuGroupStyle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MenuGroupTitleStyle"
+                    android:text="@string/sys_setting" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--基础信息配置-->
+                    <LinearLayout style="@style/MenuItemStyle">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_vector_config" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="7dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/menu_text_base_config" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</layout>
