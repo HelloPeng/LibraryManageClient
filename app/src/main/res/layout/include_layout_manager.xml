@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -120,7 +119,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <!--手动录入单个学生信息-->
-                    <LinearLayout style="@style/MenuItemAverageStyle">
+                    <LinearLayout
+                        android:id="@+id/ll_student_single_into"
+                        style="@style/MenuItemAverageStyle">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -138,7 +139,9 @@
 
                     </LinearLayout>
                     <!--批量自动导入学生信息-->
-                    <LinearLayout style="@style/MenuItemAverageStyle">
+                    <LinearLayout
+                        android:id="@+id/ll_student_batch_into"
+                        style="@style/MenuItemAverageStyle">
 
                         <ImageView
                             android:layout_width="wrap_content"

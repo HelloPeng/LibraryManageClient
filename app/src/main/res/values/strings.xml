@@ -21,4 +21,7 @@
     <string name="menu_text_batch_into">批量导入</string>
     <string name="menu_text_single_into">手动录入</string>
     <string name="menu_text_register_manage">借阅/归还</string>
+    <string name="file_size">文件大小:</string>
+    <string name="file_parent_path">路径:</string>
+    <string name="file_create_time">创建时间：</string>
 </resources>

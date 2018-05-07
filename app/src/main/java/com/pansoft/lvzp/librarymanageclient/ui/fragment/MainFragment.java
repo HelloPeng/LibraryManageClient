@@ -13,6 +13,7 @@ import com.pansoft.lvzp.librarymanageclient.base.BaseFragment;
 import com.pansoft.lvzp.librarymanageclient.databinding.FragmentMainBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutManagerBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutStudentBinding;
+import com.pansoft.lvzp.librarymanageclient.ui.FileScanActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.AddStudentActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.StudentInfoActivity;
@@ -96,10 +97,16 @@ public class MainFragment
                 BookInfoActivity.actionStart(mContext);
                 break;
             case R.id.ll_book_batch_into:
-                AddStudentActivity.actionStart(mContext);
+                FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_BOOK);
                 break;
             case R.id.ll_book_register_manage:
                 StudentInfoActivity.actionStart(mContext);
+                break;
+            case R.id.ll_student_single_into:
+                AddStudentActivity.actionStart(mContext);
+                break;
+            case R.id.ll_student_batch_into:
+                FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_STUDENT);
                 break;
         }
     }
@@ -108,7 +115,9 @@ public class MainFragment
         setOnClickListener(this,
                 mManagerBinding.llBookSingleInto,
                 mManagerBinding.llBookBatchInto,
-                mManagerBinding.llBookRegisterManage);
+                mManagerBinding.llBookRegisterManage,
+                mManagerBinding.llStudentBatchInto,
+                mManagerBinding.llStudentSingleInto);
     }
 
     private void initStudentViews() {

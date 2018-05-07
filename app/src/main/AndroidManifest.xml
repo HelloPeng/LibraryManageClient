@@ -22,7 +22,8 @@
             android:theme="@style/ActivityTranslucentTheme" />
         <activity android:name=".ui.book.BookInfoActivity" />
         <activity android:name=".ui.student.AddStudentActivity" />
-        <activity android:name=".ui.student.StudentInfoActivity"></activity>
+        <activity android:name=".ui.student.StudentInfoActivity" />
+        <activity android:name=".ui.FileScanActivity"></activity>
     </application>
 
 </manifest>

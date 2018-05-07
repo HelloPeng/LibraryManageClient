@@ -39,4 +39,8 @@ dependencies {
     implementation 'com.lapism:searchview:27.1.1.0.0'
     //material-dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    //RxPermission
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+    //用来解析Excel的插件
+    implementation 'org.apache.poi:poi:3.17'
 }
