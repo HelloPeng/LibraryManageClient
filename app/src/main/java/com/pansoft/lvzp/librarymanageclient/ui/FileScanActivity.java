@@ -221,6 +221,9 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
                         @Override
                         public void onComplete() {
                             mDataBinding.llProgress.setVisibility(View.GONE);
+                            if (mListData.size() <= 0) {
+                                mDataBinding.llNotFoundFile.setVisibility(View.VISIBLE);
+                            }
                             mAdapter.notifyDataSetChanged();
                         }
                     });
