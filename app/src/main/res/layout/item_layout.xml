@@ -9,8 +9,7 @@
         android:id="@+id/iv_photo"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_vector_default" />
+        android:scaleType="centerCrop" />
 
     <Space
         android:layout_width="8dp"

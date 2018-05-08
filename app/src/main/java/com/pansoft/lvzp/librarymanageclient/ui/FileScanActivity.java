@@ -67,17 +67,6 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RxPermissions permissions = new RxPermissions(this);
-        mPermissionsSubscribe = permissions
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) {
-                        if (!aBoolean) {
-                            finish();
-                        }
-                    }
-                });
     }
 
     @Override
@@ -93,12 +82,29 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
 
     @Override
     protected void initViews() {
-        mScanType = getIntent().getStringExtra(SCAN_TYPE);
-        initRecyclerView();
-        initSearchFile();
+        setSupportActionBar(mDataBinding.toolbar);
+        setTitle("数据导入");
+        openBackIcon();
+        RxPermissions permissions = new RxPermissions(this);
+        mPermissionsSubscribe = permissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) {
+                        if (!aBoolean) {
+                            finish();
+                        } else {
+                            mScanType = getIntent().getStringExtra(SCAN_TYPE);
+                            initRecyclerView();
+                            initSearchFile();
+                        }
+                    }
+                });
+
     }
 
     private void execExcel(String filePath) {
+        showProgressDialog("正在解析文件...");
         try {
             FileInputStream fis = new FileInputStream(filePath);
             Workbook workbook = new HSSFWorkbook(fis);
@@ -111,6 +117,7 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
             //得到第i个sheet
             Sheet sheet = workbook.getSheet(sheetName);
             if (sheet == null) {
+                dismissProgressDialog();
                 showToast("该文件格式不正确，无法进行读取");
                 finish();
                 return;
@@ -144,8 +151,14 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
             Log.d(TAG, "\nread excel successfully...");
             //close file input stream
             fis.close();
+            dismissProgressDialog();
+            showToast("解析成功");
+
+
         } catch (Exception e) {
             e.printStackTrace();
+            showToast("解析失败");
+            dismissProgressDialog();
         }
 
     }
