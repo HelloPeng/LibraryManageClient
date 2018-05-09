@@ -1,10 +1,13 @@
 package com.pansoft.lvzp.librarymanageclient.adapter;
 
-import com.pansoft.lvzp.librarymanageclient.BR;
+import android.view.View;
+
+import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingBaseRecycleAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingViewHolder;
 import com.pansoft.lvzp.librarymanageclient.bean.BookListItemBean;
 import com.pansoft.lvzp.librarymanageclient.databinding.ItemSearchBooklistBinding;
+import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
 
 /**
  * 作者：吕振鹏
@@ -18,12 +21,24 @@ import com.pansoft.lvzp.librarymanageclient.databinding.ItemSearchBooklistBindin
 public class BookListAdapter extends BindingBaseRecycleAdapter<BookListItemBean, ItemSearchBooklistBinding> {
 
     public BookListAdapter() {
-        super(BR.bookItemBean);
+        super(R.layout.item_search_booklist);
     }
 
     @Override
-    protected void bindingViews(BindingViewHolder<ItemSearchBooklistBinding> holder, int position, BookListItemBean itemBean) {
-        ItemSearchBooklistBinding binding = holder.getBinding();
-
+    protected void bindingViews(final BindingViewHolder<ItemSearchBooklistBinding> holder, final int position, BookListItemBean itemBean) {
+        final ItemSearchBooklistBinding binding = holder.getBinding();
+        binding.setBookItemBean(itemBean);
+        binding.llBookInfoParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookInfoActivity.actionStart(binding.getRoot().getContext());
+            }
+        });
+        binding.tvDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItem(holder.getLayoutPosition());
+            }
+        });
     }
 }

@@ -5,19 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pansoft.lvzp.librarymanageclient.BR;
 import com.pansoft.lvzp.librarymanageclient.R;
+import com.pansoft.lvzp.librarymanageclient.adapter.BookListAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.BaseFragment;
-import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingBaseRecycleAdapter;
-import com.pansoft.lvzp.librarymanageclient.base.adapter.SimpleBindingAdapter;
 import com.pansoft.lvzp.librarymanageclient.bean.BookListItemBean;
 import com.pansoft.lvzp.librarymanageclient.databinding.FragmentSearchListBinding;
-import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +45,7 @@ public class SearchListFragment
         return fragment;
     }
 
-    private SimpleBindingAdapter<BookListItemBean> mBookAdapter;
+    private BookListAdapter mBookAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,13 +72,7 @@ public class SearchListFragment
         mDataBinding.swipeRefresh.setOnRefreshListener(this);
         mDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mDataBinding.recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-        mBookAdapter = new SimpleBindingAdapter<>(R.layout.item_search_booklist, BR.bookItemBean);
-        mBookAdapter.setOnItemCLickListener(new BindingBaseRecycleAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder viewHolder, View view, int position) {
-                BookInfoActivity.actionStart(mContext);
-            }
-        });
+        mBookAdapter = new BookListAdapter();
         mDataBinding.recyclerView.setAdapter(mBookAdapter);
         List<BookListItemBean> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

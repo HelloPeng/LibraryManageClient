@@ -11,7 +11,9 @@
 
     <com.mcxtzhang.swipemenulib.SwipeMenuLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
             android:id="@+id/ll_book_info_parent"
