@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.view.menu.MenuBuilder;
@@ -21,6 +22,7 @@ import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.BaseActivity;
 import com.pansoft.lvzp.librarymanageclient.databinding.ActivityMainBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.fragment.MainFragment;
+import com.pansoft.lvzp.librarymanageclient.ui.fragment.SearchListFragment;
 
 public class MainActivity
         extends BaseActivity<ActivityMainBinding>
@@ -41,6 +43,7 @@ public class MainActivity
     private String[] mSearchKeyTypes;
     private String[] mSearchValueTypes;
     private String[] mSearchTypeCodes;
+    private boolean isOpenList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,18 @@ public class MainActivity
     @Override
     protected void initViews() {
         initSearchListener();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fl_replace, MainFragment.newInstance(MainFragment.USER_TYPE_MANAGER));
-        transaction.commit();
+        replaceFragment(MainFragment.newInstance(MainFragment.USER_TYPE_MANAGER));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isOpenList) {
+            isOpenList = false;
+            mDataBinding.searchView.setLogoHamburgerToLogoArrowWithAnimation(false);
+            replaceFragment(MainFragment.newInstance(MainFragment.USER_TYPE_MANAGER));
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void initSearchListener() {
@@ -82,6 +93,10 @@ public class MainActivity
 
     @Override
     public void onLogoClick() {
+        if (isOpenList) {
+            onBackPressed();
+            return;
+        }
         new MaterialDialog
                 .Builder(mContext)
                 .title(R.string.search_type_dialog_title)
@@ -124,6 +139,9 @@ public class MainActivity
     @Override
     public boolean onQueryTextSubmit(CharSequence query) {
         mDataBinding.searchView.close();
+        mDataBinding.searchView.setLogoHamburgerToLogoArrowWithAnimation(true);
+        isOpenList = true;
+        replaceFragment(SearchListFragment.newInstance(query.toString()));
         return true;
     }
 
@@ -175,5 +193,13 @@ public class MainActivity
             mSearchValueTypes[i] = searchType[1];
             mSearchTypeCodes[i] = searchType[2];
         }
+    }
+
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fl_replace, fragment);
+        transaction.commit();
     }
 }

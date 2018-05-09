@@ -233,7 +233,7 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
     private File mParentFile;
 
     /**
-     * rxjava递归查询内存中的视频文件
+     * rxjava递归查询文件
      *
      * @param f
      * @return

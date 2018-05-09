@@ -2,18 +2,32 @@ package com.pansoft.lvzp.librarymanageclient.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pansoft.lvzp.librarymanageclient.BR;
 import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.BaseFragment;
+import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingBaseRecycleAdapter;
+import com.pansoft.lvzp.librarymanageclient.base.adapter.SimpleBindingAdapter;
+import com.pansoft.lvzp.librarymanageclient.bean.BookListItemBean;
 import com.pansoft.lvzp.librarymanageclient.databinding.FragmentSearchListBinding;
+import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 搜索列表的Fragment
  */
-public class SearchListFragment extends BaseFragment<FragmentSearchListBinding> {
+public class SearchListFragment
+        extends BaseFragment<FragmentSearchListBinding>
+        implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String ARG_SEARCH_KEY = "search_key";
 
@@ -34,6 +48,8 @@ public class SearchListFragment extends BaseFragment<FragmentSearchListBinding> 
         fragment.setArguments(args);
         return fragment;
     }
+
+    private SimpleBindingAdapter<BookListItemBean> mBookAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +73,39 @@ public class SearchListFragment extends BaseFragment<FragmentSearchListBinding> 
 
     @Override
     protected void initViews() {
+        mDataBinding.swipeRefresh.setOnRefreshListener(this);
+        mDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mDataBinding.recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+        mBookAdapter = new SimpleBindingAdapter<>(R.layout.item_search_booklist, BR.bookItemBean);
+        mBookAdapter.setOnItemCLickListener(new BindingBaseRecycleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, View view, int position) {
+                BookInfoActivity.actionStart(mContext);
+            }
+        });
+        mDataBinding.recyclerView.setAdapter(mBookAdapter);
+        List<BookListItemBean> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            BookListItemBean itemBean = new BookListItemBean();
+            itemBean.setName("图书第" + i + "本");
+            itemBean.setPublishHouse("辉煌出版社");
+            itemBean.setPublishTime("公元前：221-01-31");
+            list.add(itemBean);
+        }
+        mBookAdapter.setupData(list);
+        mBookAdapter.notifyDataSetChanged();
+    }
 
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        mDataBinding.swipeRefresh.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mDataBinding.swipeRefresh.setRefreshing(false);
+            }
+        }, 1000);
     }
 }

@@ -14,7 +14,6 @@ import com.pansoft.lvzp.librarymanageclient.databinding.FragmentMainBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutManagerBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutStudentBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.FileScanActivity;
-import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.AddStudentActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.StudentInfoActivity;
 
@@ -94,7 +93,6 @@ public class MainFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_book_single_into:
-                BookInfoActivity.actionStart(mContext);
                 break;
             case R.id.ll_book_batch_into:
                 FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_BOOK);
