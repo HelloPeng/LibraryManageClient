@@ -2,6 +2,7 @@ package com.pansoft.lvzp.librarymanageclient.base;
 
 import android.app.Application;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 
 /**
@@ -18,6 +19,7 @@ public class Apl extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
     public static Apl getInstance() {

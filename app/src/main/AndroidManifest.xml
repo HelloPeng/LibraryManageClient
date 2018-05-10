@@ -3,6 +3,8 @@
     package="com.pansoft.lvzp.librarymanageclient">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".base.Apl"
@@ -25,7 +27,8 @@
         <activity android:name=".ui.book.BookInfoActivity" />
         <activity android:name=".ui.student.AddStudentActivity" />
         <activity android:name=".ui.student.StudentInfoActivity" />
-        <activity android:name=".ui.FileScanActivity"></activity>
+        <activity android:name=".ui.FileScanActivity" />
+        <activity android:name=".ui.book.BookRegisterActivity"></activity>
     </application>
 
 </manifest>

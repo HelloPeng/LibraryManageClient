@@ -14,8 +14,8 @@ import com.pansoft.lvzp.librarymanageclient.databinding.FragmentMainBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutManagerBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutStudentBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.FileScanActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.book.BookRegisterActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.AddStudentActivity;
-import com.pansoft.lvzp.librarymanageclient.ui.student.StudentInfoActivity;
 
 /**
  * 通用首页Fragment
@@ -98,7 +98,8 @@ public class MainFragment
                 FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_BOOK);
                 break;
             case R.id.ll_book_register_manage:
-                StudentInfoActivity.actionStart(mContext);
+                BookRegisterActivity.actionStart(mContext);
+                /*  StudentInfoActivity.actionStart(mContext);*/
                 break;
             case R.id.ll_student_single_into:
                 AddStudentActivity.actionStart(mContext);

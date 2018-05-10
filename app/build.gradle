@@ -45,4 +45,6 @@ dependencies {
     implementation 'org.apache.poi:poi:3.17'
     //侧滑删除的布局
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.5'
+    //扫描库
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
 }
