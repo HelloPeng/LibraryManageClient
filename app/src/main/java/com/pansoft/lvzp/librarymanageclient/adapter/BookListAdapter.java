@@ -6,7 +6,7 @@ import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingBaseRecycleAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingViewHolder;
 import com.pansoft.lvzp.librarymanageclient.bean.BookListItemBean;
-import com.pansoft.lvzp.librarymanageclient.databinding.ItemSearchBooklistBinding;
+import com.pansoft.lvzp.librarymanageclient.databinding.ItemLayoutSearchBooklistBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
 
 /**
@@ -18,15 +18,15 @@ import com.pansoft.lvzp.librarymanageclient.ui.book.BookInfoActivity;
  * 类描述：
  * 修改时间：
  */
-public class BookListAdapter extends BindingBaseRecycleAdapter<BookListItemBean, ItemSearchBooklistBinding> {
+public class BookListAdapter extends BindingBaseRecycleAdapter<BookListItemBean, ItemLayoutSearchBooklistBinding> {
 
     public BookListAdapter() {
-        super(R.layout.item_search_booklist);
+        super(R.layout.item_layout_search_booklist);
     }
 
     @Override
-    protected void bindingViews(final BindingViewHolder<ItemSearchBooklistBinding> holder, final int position, BookListItemBean itemBean) {
-        final ItemSearchBooklistBinding binding = holder.getBinding();
+    protected void bindingViews(final BindingViewHolder<ItemLayoutSearchBooklistBinding> holder, final int position, BookListItemBean itemBean) {
+        final ItemLayoutSearchBooklistBinding binding = holder.getBinding();
         binding.setBookItemBean(itemBean);
         binding.llBookInfoParent.setOnClickListener(new View.OnClickListener() {
             @Override

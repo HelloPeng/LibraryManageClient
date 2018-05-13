@@ -9,8 +9,6 @@ import android.view.View;
 import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.BaseActivity;
 import com.pansoft.lvzp.librarymanageclient.databinding.ActivityLoginBinding;
-import com.pansoft.lvzp.librarymanageclient.db.SqlDatabase;
-import com.pansoft.lvzp.librarymanageclient.db.bean.LoginUser;
 
 /**
  * Created by lv_zhp on 2018/4/29.
@@ -51,7 +49,12 @@ public class LoginActivity
                     showToast(getString(R.string.input_password_hint));
                     return;
                 }
-                MainActivity.actionStart(mContext);
+                if ("1".equals(username)) {
+                    MainActivity.actionStart(mContext, MainActivity.USER_TYPE_MANAGER);
+                } else if ("2".equals(username)) {
+                    MainActivity.actionStart(mContext, MainActivity.USER_TYPE_STUDENT);
+                }
+
                /* LoginUser user = new LoginUser();
                 user.setUsername(username);
                 user.setPassword(password);

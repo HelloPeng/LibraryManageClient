@@ -23,7 +23,7 @@
             android:layout_marginTop="25dp"
             android:background="@android:color/white"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="15dp"
             android:theme="@style/MyEditText">
 
 
@@ -49,7 +49,7 @@
                 android:id="@+id/iv_scan_book_sn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="?android:selectableItemBackground"
+                android:background="?android:selectableItemBackgroundBorderless"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:src="@drawable/ic_vector_camera" />
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="15dp"
             android:theme="@style/MyEditText">
 
 
@@ -116,5 +116,12 @@
                 android:theme="@style/AutoButton" />
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btn_confirm_renew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:text="确认续借"
+            android:theme="@style/AutoButton" />
     </LinearLayout>
 </layout>

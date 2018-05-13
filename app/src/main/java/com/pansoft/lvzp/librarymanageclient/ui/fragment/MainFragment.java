@@ -14,8 +14,14 @@ import com.pansoft.lvzp.librarymanageclient.databinding.FragmentMainBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutManagerBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutStudentBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.FileScanActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.MainActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.MeActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.book.AddBookActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.book.BookRegisterActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.AddStudentActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.student.BlackListActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.student.BorrowBookRecordActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.student.OverdueStudentListActivity;
 
 /**
  * 通用首页Fragment
@@ -24,10 +30,6 @@ public class MainFragment
         extends BaseFragment<FragmentMainBinding>
         implements View.OnClickListener {
 
-    public static final String USER_TYPE_MANAGER = "manager";
-    public static final String USER_TYPE_STUDENT = "student";
-
-    private static final String ARG_USER_TYPE = "user_type";
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private String mUserType;
@@ -44,7 +46,7 @@ public class MainFragment
     public static MainFragment newInstance(String userType) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_USER_TYPE, userType);
+        args.putString(MainActivity.USER_TYPE, userType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,7 +58,7 @@ public class MainFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mUserType = getArguments().getString(ARG_USER_TYPE);
+            mUserType = getArguments().getString(MainActivity.USER_TYPE);
         }
     }
 
@@ -74,13 +76,13 @@ public class MainFragment
 
     @Override
     protected void initViews() {
-        if (USER_TYPE_MANAGER.equals(mUserType)) {
+        if (MainActivity.USER_TYPE_MANAGER.equals(mUserType)) {
             ViewStub viewStub = mDataBinding.viewStudManager.getViewStub();
             if (viewStub != null)
                 viewStub.inflate();
             mManagerBinding = (IncludeLayoutManagerBinding) mDataBinding.viewStudManager.getBinding();
             initManagerViews();
-        } else if (USER_TYPE_STUDENT.equals(mUserType)) {
+        } else if (MainActivity.USER_TYPE_STUDENT.equals(mUserType)) {
             ViewStub viewStub = mDataBinding.viewStudStudent.getViewStub();
             if (viewStub != null)
                 viewStub.inflate();
@@ -93,6 +95,7 @@ public class MainFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_book_single_into:
+                AddBookActivity.actionStart(mContext);
                 break;
             case R.id.ll_book_batch_into:
                 FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_BOOK);
@@ -107,6 +110,18 @@ public class MainFragment
             case R.id.ll_student_batch_into:
                 FileScanActivity.actionStart(mContext, FileScanActivity.SCAN_TYPE_STUDENT);
                 break;
+            case R.id.ll_overdue_list:
+                OverdueStudentListActivity.actionStart(mContext);
+                break;
+            case R.id.ll_black_list:
+                BlackListActivity.actionStart(mContext);
+                break;
+            case R.id.ll_student_info:
+                MeActivity.actionStart(mContext);
+                break;
+            case R.id.ll_borrow_record:
+                BorrowBookRecordActivity.actionStart(mContext);
+                break;
         }
     }
 
@@ -116,10 +131,14 @@ public class MainFragment
                 mManagerBinding.llBookBatchInto,
                 mManagerBinding.llBookRegisterManage,
                 mManagerBinding.llStudentBatchInto,
-                mManagerBinding.llStudentSingleInto);
+                mManagerBinding.llStudentSingleInto,
+                mManagerBinding.llOverdueList,
+                mManagerBinding.llBlackList);
     }
 
     private void initStudentViews() {
-
+        setOnClickListener(this,
+                mStudentBinding.llStudentInfo,
+                mStudentBinding.llBorrowRecord);
     }
 }

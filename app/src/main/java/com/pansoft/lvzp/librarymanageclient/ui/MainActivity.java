@@ -30,12 +30,17 @@ public class MainActivity
         , Search.OnMenuClickListener
         , Search.OnLogoClickListener
         , Search.OnQueryTextListener {
+    public static final String USER_TYPE_MANAGER = "manager";
+    public static final String USER_TYPE_STUDENT = "student";
+
+    public static final String USER_TYPE = "user_type";
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context, String userType) {
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);
+        intent.putExtra(USER_TYPE, userType);
         context.startActivity(intent);
     }
 
@@ -44,6 +49,8 @@ public class MainActivity
     private String[] mSearchValueTypes;
     private String[] mSearchTypeCodes;
     private boolean isOpenList;
+    private Fragment mCurrentFragment;
+    private String mUserType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +67,11 @@ public class MainActivity
 
     @Override
     protected void initViews() {
+        Intent intent = getIntent();
+        mUserType = intent.getStringExtra(USER_TYPE);
         initSearchListener();
-        replaceFragment(MainFragment.newInstance(MainFragment.USER_TYPE_MANAGER));
+        mCurrentFragment = MainFragment.newInstance(mUserType);
+        replaceFragment(mCurrentFragment);
     }
 
     @Override
@@ -69,7 +79,7 @@ public class MainActivity
         if (isOpenList) {
             isOpenList = false;
             mDataBinding.searchView.setLogoHamburgerToLogoArrowWithAnimation(false);
-            replaceFragment(MainFragment.newInstance(MainFragment.USER_TYPE_MANAGER));
+            replaceFragment(mCurrentFragment);
         } else {
             super.onBackPressed();
         }
@@ -97,6 +107,9 @@ public class MainActivity
             onBackPressed();
             return;
         }
+        if (USER_TYPE_STUDENT.equals(mUserType)) {
+            return;
+        }
         new MaterialDialog
                 .Builder(mContext)
                 .title(R.string.search_type_dialog_title)
@@ -119,7 +132,6 @@ public class MainActivity
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog,
                                         @NonNull DialogAction which) {
-                        Toast.makeText(mContext, "Code = " + mSearchTypeCodes[mSelectSearchWhich], Toast.LENGTH_SHORT).show();
                         mDataBinding.searchView.setHint(getSearchTypeHintData());
                     }
                 })
@@ -141,7 +153,7 @@ public class MainActivity
         mDataBinding.searchView.close();
         mDataBinding.searchView.setLogoHamburgerToLogoArrowWithAnimation(true);
         isOpenList = true;
-        replaceFragment(SearchListFragment.newInstance(query.toString()));
+        replaceFragment(SearchListFragment.newInstance(mSearchTypeCodes[mSelectSearchWhich], query.toString()));
         return true;
     }
 

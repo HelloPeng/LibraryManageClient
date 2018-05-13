@@ -3,6 +3,7 @@
     <string name="password">密　码：</string>
     <string name="username">用户名：</string>
     <string name="login">登录</string>
+    <string name="exit_login">退出登录</string>
     <string name="input_username_hint">请输入用户名</string>
     <string name="activity_name_manager">管理员</string>
     <string name="input_password_hint">请输入密码</string>
@@ -25,4 +26,6 @@
     <string name="file_parent_path">路径:</string>
     <string name="file_create_time">创建时间：</string>
     <string name="not_found_file">未找到文件</string>
+    <string name="menu_text_student_info">个人信息</string>
+    <string name="menu_text_borrow_record">借阅记录</string>
 </resources>

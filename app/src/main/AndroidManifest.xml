@@ -14,21 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/ActivityTranslucentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.LoginActivity"
-            android:theme="@style/ActivityTranslucentTheme" />
         <activity android:name=".ui.book.BookInfoActivity" />
         <activity android:name=".ui.student.AddStudentActivity" />
         <activity android:name=".ui.student.StudentInfoActivity" />
         <activity android:name=".ui.FileScanActivity" />
-        <activity android:name=".ui.book.BookRegisterActivity"></activity>
+        <activity android:name=".ui.book.BookRegisterActivity" />
+        <activity android:name=".ui.book.AddBookActivity" />
+        <activity android:name=".ui.student.OverdueStudentListActivity" />
+        <activity android:name=".ui.student.BorrowBookRecordActivity" />
+        <activity android:name=".ui.MeActivity" />
+        <activity android:name=".ui.student.BlackListActivity"></activity>
     </application>
 
 </manifest>
