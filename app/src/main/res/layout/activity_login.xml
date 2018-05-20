@@ -38,7 +38,8 @@
                 android:background="@drawable/bg_green_stroke"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,6 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:hint="@string/input_username_hint"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
@@ -70,10 +73,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:background="@drawable/bg_green_stroke"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -89,6 +93,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textPassword"
                     android:hint="@string/input_password_hint"
                     android:imeOptions="actionDone"
                     android:singleLine="true"

@@ -13,12 +13,19 @@ import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.adapter.BookListAdapter;
 import com.pansoft.lvzp.librarymanageclient.adapter.StudentListAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.BaseFragment;
+import com.pansoft.lvzp.librarymanageclient.bean.BookDao;
 import com.pansoft.lvzp.librarymanageclient.bean.BookListItemBean;
 import com.pansoft.lvzp.librarymanageclient.bean.SearchStudentItemBean;
+import com.pansoft.lvzp.librarymanageclient.bean.StudentDao;
 import com.pansoft.lvzp.librarymanageclient.databinding.FragmentSearchListBinding;
+import com.pansoft.lvzp.librarymanageclient.http.ApiUrl;
+import com.pansoft.lvzp.librarymanageclient.http.HttpResultCallback;
+import com.pansoft.lvzp.librarymanageclient.http.OkHttpClientManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 搜索列表的Fragment
@@ -83,33 +90,59 @@ public class SearchListFragment
         mDataBinding.swipeRefresh.setOnRefreshListener(this);
         mDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mDataBinding.recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-        if (mSearchType == SEARCH_TYPE_BOOK) {
-            mBookAdapter = new BookListAdapter();
-            mDataBinding.recyclerView.setAdapter(mBookAdapter);
-            List<BookListItemBean> list = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                BookListItemBean itemBean = new BookListItemBean();
-                itemBean.setName("图书第" + i + "本");
-                itemBean.setPublishHouse("辉煌出版社");
-                itemBean.setPublishTime("公元前：221-01-31");
-                list.add(itemBean);
+        loadData();
+    }
+
+    private void loadData() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("key", mSearchKey);
+        params.put("type", mSearchType);
+        OkHttpClientManager.getInstance().asyncGetParams(ApiUrl.SEARCH_DATA, params, new HttpResultCallback() {
+            @Override
+            public void onSuccess(Object data) {
+                if (mSearchType == SEARCH_TYPE_BOOK) {
+                    if (mBookAdapter == null) {
+                        mBookAdapter = new BookListAdapter();
+                        mDataBinding.recyclerView.setAdapter(mBookAdapter);
+                    }
+                    List<BookDao> listDataBean = getListDataBean(data, BookDao.class);
+                    List<BookListItemBean> list = new ArrayList<>();
+                    if (listDataBean != null && !listDataBean.isEmpty())
+                        for (BookDao bookDao : listDataBean) {
+                            BookListItemBean itemBean = new BookListItemBean();
+                            itemBean.setName(bookDao.getName());
+                            itemBean.setPublishHouse(bookDao.getPublish());
+                            itemBean.setPublishTime(bookDao.getPublishDate());
+                            list.add(itemBean);
+                        }
+                    mBookAdapter.setupData(list);
+                    mBookAdapter.notifyDataSetChanged();
+                } else if (mSearchType == SEARCH_TYPE_STUDENT) {
+                    if (mStudentAdapter == null) {
+                        mStudentAdapter = new StudentListAdapter();
+                        mDataBinding.recyclerView.setAdapter(mStudentAdapter);
+                    }
+                    List<StudentDao> listDataBean = getListDataBean(data, StudentDao.class);
+                    List<SearchStudentItemBean> list = new ArrayList<>();
+                    if (listDataBean != null && !listDataBean.isEmpty()) {
+                        for (StudentDao studentDao : listDataBean) {
+                            SearchStudentItemBean itemBean = new SearchStudentItemBean();
+                            itemBean.setName(studentDao.getName());
+                            itemBean.setCollege(studentDao.getCollege());
+                            list.add(itemBean);
+                        }
+                    }
+                    mStudentAdapter.setupData(list);
+                    mStudentAdapter.notifyDataSetChanged();
+                }
+                mDataBinding.swipeRefresh.setRefreshing(false);
             }
-            mBookAdapter.setupData(list);
-            mBookAdapter.notifyDataSetChanged();
-        } else if (mSearchType == SEARCH_TYPE_STUDENT) {
-            mStudentAdapter = new StudentListAdapter();
-            mDataBinding.recyclerView.setAdapter(mStudentAdapter);
-            List<SearchStudentItemBean> list = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                SearchStudentItemBean itemBean = new SearchStudentItemBean();
-                itemBean.setName("小明同学" + i);
-                itemBean.setCollege("辉煌出版社");
-                itemBean.setLastBorrowTime("公元前：221-01-31");
-                list.add(itemBean);
+
+            @Override
+            public void onError(String msg) {
+                simpleError(msg);
             }
-            mStudentAdapter.setupData(list);
-            mStudentAdapter.notifyDataSetChanged();
-        }
+        });
 
     }
 
@@ -118,11 +151,6 @@ public class SearchListFragment
      */
     @Override
     public void onRefresh() {
-        mDataBinding.swipeRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDataBinding.swipeRefresh.setRefreshing(false);
-            }
-        }, 1000);
+        loadData();
     }
 }

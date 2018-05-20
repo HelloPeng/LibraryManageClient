@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 
+import com.pansoft.lvzp.librarymanageclient.Constant;
 import com.pansoft.lvzp.librarymanageclient.R;
+import com.pansoft.lvzp.librarymanageclient.base.Apl;
 import com.pansoft.lvzp.librarymanageclient.base.BaseFragment;
 import com.pansoft.lvzp.librarymanageclient.databinding.FragmentMainBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutManagerBinding;
 import com.pansoft.lvzp.librarymanageclient.databinding.IncludeLayoutStudentBinding;
 import com.pansoft.lvzp.librarymanageclient.ui.FileScanActivity;
+import com.pansoft.lvzp.librarymanageclient.ui.LoginActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.MainActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.MeActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.book.AddBookActivity;
@@ -22,6 +25,7 @@ import com.pansoft.lvzp.librarymanageclient.ui.student.AddStudentActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.BlackListActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.BorrowBookRecordActivity;
 import com.pansoft.lvzp.librarymanageclient.ui.student.OverdueStudentListActivity;
+import com.pansoft.lvzp.librarymanageclient.utils.SharedPreferencesUtils;
 
 /**
  * 通用首页Fragment
@@ -122,6 +126,14 @@ public class MainFragment
             case R.id.ll_borrow_record:
                 BorrowBookRecordActivity.actionStart(mContext);
                 break;
+            case R.id.btn_exit_login:
+                SharedPreferencesUtils.setParam(mContext, Constant.USER_LOGIN_OID, "");
+                SharedPreferencesUtils.setParam(mContext, Constant.USER_LOGIN_TYPE, "");
+                Apl.getInstance().setUserType("");
+                Apl.getInstance().setUserOid("");
+                LoginActivity.actionStart(mContext);
+                getActivity().finish();
+                break;
         }
     }
 
@@ -133,12 +145,14 @@ public class MainFragment
                 mManagerBinding.llStudentBatchInto,
                 mManagerBinding.llStudentSingleInto,
                 mManagerBinding.llOverdueList,
-                mManagerBinding.llBlackList);
+                mManagerBinding.llBlackList,
+                mManagerBinding.btnExitLogin);
     }
 
     private void initStudentViews() {
         setOnClickListener(this,
                 mStudentBinding.llStudentInfo,
-                mStudentBinding.llBorrowRecord);
+                mStudentBinding.llBorrowRecord,
+                mStudentBinding.btnExitLogin);
     }
 }

@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+
+import java.util.List;
 
 /**
  * Created by lv_zhp on 2018/4/1.
@@ -115,4 +118,11 @@ public abstract class BaseActivity<D extends ViewDataBinding>
         }
     }
 
+    protected <T> T getDataBean(Object data, Class<T> cls) {
+        return JSON.parseObject(JSON.toJSONString(data), cls);
+    }
+
+    protected <T> List<T> getListDataBean(Object data, Class<T> cls) {
+        return JSON.parseArray(JSON.toJSONString(data), cls);
+    }
 }

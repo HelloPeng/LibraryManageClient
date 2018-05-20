@@ -6,7 +6,7 @@ package com.pansoft.lvzp.librarymanageclient.bean;
  * 创建时间：2018年05月13日
  * 时间：17:00
  * 版本：v1.0.0
- * 类描述：
+ * 类描述：借阅记录
  * 修改时间：
  */
 public class BorrowBookRecordItemBean {

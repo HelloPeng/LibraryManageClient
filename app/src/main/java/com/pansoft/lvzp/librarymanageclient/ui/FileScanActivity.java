@@ -14,8 +14,13 @@ import android.view.View;
 import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.adapter.FileAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.BaseActivity;
+import com.pansoft.lvzp.librarymanageclient.bean.BookDao;
 import com.pansoft.lvzp.librarymanageclient.bean.FileItemBean;
+import com.pansoft.lvzp.librarymanageclient.bean.StudentDao;
 import com.pansoft.lvzp.librarymanageclient.databinding.ActivityFileScanBinding;
+import com.pansoft.lvzp.librarymanageclient.http.ApiUrl;
+import com.pansoft.lvzp.librarymanageclient.http.HttpResultCallback;
+import com.pansoft.lvzp.librarymanageclient.http.OkHttpClientManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -63,6 +68,8 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
     private Disposable mPermissionsSubscribe;
     private List<FileItemBean> mListData = new ArrayList<>();
     private FileAdapter mAdapter;
+    private List<StudentDao> mStudentDao;
+    private List<BookDao> mBookDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +118,10 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
             String sheetName = null;
             if (SCAN_TYPE_BOOK.equals(mScanType)) {
                 sheetName = "book";
+                mBookDao = new ArrayList<>();
             } else if (SCAN_TYPE_STUDENT.equals(mScanType)) {
                 sheetName = "student";
+                mStudentDao = new ArrayList<>();
             }
             //得到第i个sheet
             Sheet sheet = workbook.getSheet(sheetName);
@@ -130,20 +139,80 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
                 Log.d(TAG, "第" + (rowCount++) + "行  ");
                 //得到一行对象
                 Row row = rowIterator.next();
+                if (rowCount == 1)
+                    continue;
                 //得到列对象
                 Iterator<Cell> cellIterator = row.cellIterator();
+                StudentDao studentDao = null;
+                BookDao bookDao = null;
+                if (SCAN_TYPE_BOOK.equals(mScanType)) {
+                    bookDao = new BookDao();
+                    mBookDao.add(bookDao);
+                } else if (SCAN_TYPE_STUDENT.equals(mScanType)) {
+                    studentDao = new StudentDao();
+                    mStudentDao.add(studentDao);
+                }
+                int cellCount = 0;
                 //循环每一列
                 while (cellIterator.hasNext()) {
                     //System.out.print("第"+(columnCount++)+"列:  ");
+                    cellCount++;
                     //得到单元格对象
                     Cell cell = cellIterator.next();
                     //检查数据类型
                     switch (cell.getCellTypeEnum()) {
                         case STRING:
-                            Log.d(TAG, cell.getStringCellValue() + "   ");
+                            String value = cell.getStringCellValue();
+                            if (SCAN_TYPE_BOOK.equals(mScanType)) {
+                                switch (cellCount) {
+                                    case 1:
+                                        bookDao.setSn(value);
+                                        break;
+                                    case 2:
+                                        bookDao.setName(value);
+                                        break;
+                                    case 3:
+                                        bookDao.setAuthor(value);
+                                        break;
+                                    case 4:
+                                        bookDao.setPublish(value);
+                                        break;
+                                    case 5:
+                                        bookDao.setImage(value);
+                                        break;
+                                    case 6:
+                                        bookDao.setType(value);
+                                        break;
+                                    case 7:
+                                        bookDao.setPublishDate(value);
+                                        break;
+                                }
+                            } else if (SCAN_TYPE_STUDENT.equals(mScanType)) {
+                                switch (cellCount) {
+                                    case 1:
+                                        studentDao.setSn(value);
+                                        break;
+                                    case 2:
+                                        studentDao.setName(value);
+                                        break;
+                                    case 3:
+                                        studentDao.setPassword(value);
+                                        break;
+                                    case 4:
+                                        studentDao.setSex(value);
+                                        break;
+                                    case 5:
+                                        studentDao.setCollege(value);
+                                        break;
+                                    case 6:
+                                        studentDao.setMajor(value);
+                                        break;
+                                    case 7:
+                                        studentDao.setClasses(value);
+                                        break;
+                                }
+                            }
                             break;
-                        case NUMERIC:
-                            Log.d(TAG, (int) cell.getNumericCellValue() + "   ");
                     }
                 } //end of cell iterator
                 Log.d(TAG, "\n");
@@ -151,10 +220,12 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
             Log.d(TAG, "\nread excel successfully...");
             //close file input stream
             fis.close();
-            dismissProgressDialog();
             showToast("解析成功");
-
-
+            if (SCAN_TYPE_BOOK.equals(mScanType)) {
+                uploadBookData();
+            } else if (SCAN_TYPE_STUDENT.equals(mScanType)) {
+                uploadStudentData();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             showToast("解析失败");
@@ -172,7 +243,46 @@ public class FileScanActivity extends BaseActivity<ActivityFileScanBinding> {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder, View view, int position) {
                 //ExcelActivity.actionStart(mContext, mListData.get(position).getPath());
+                showProgressDialog();
                 execExcel(mListData.get(position).getPath());
+            }
+        });
+    }
+
+    private void uploadStudentData() {
+        OkHttpClientManager.getInstance().asyncPostJson(ApiUrl.ADD_STUDENT, mStudentDao, new HttpResultCallback() {
+            @Override
+            public void onSuccess(Object data) {
+                Boolean dataBean = getDataBean(data, Boolean.class);
+                if (dataBean) {
+                    dismissProgressDialog();
+                    showToast("上传成功");
+                    finish();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                simpleError(msg);
+            }
+        });
+    }
+
+    private void uploadBookData() {
+        OkHttpClientManager.getInstance().asyncPostJson(ApiUrl.ADD_BOOK, mBookDao, new HttpResultCallback() {
+            @Override
+            public void onSuccess(Object data) {
+                Boolean dataBean = getDataBean(data, Boolean.class);
+                if (dataBean) {
+                    dismissProgressDialog();
+                    showToast("上传成功");
+                    finish();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                simpleError(msg);
             }
         });
     }

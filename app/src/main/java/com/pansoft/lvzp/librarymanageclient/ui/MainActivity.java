@@ -12,7 +12,6 @@ import android.support.v7.view.menu.MenuBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -172,7 +171,13 @@ public class MainActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_about:
-                Toast.makeText(mContext, "点击了:" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                new MaterialDialog
+                        .Builder(mContext)
+                        .theme(Theme.LIGHT)
+                        .title("本馆介绍")
+                        .content(R.string.library_about_info)
+                        .positiveText(R.string.confirm_choice_dialog_positive)
+                        .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

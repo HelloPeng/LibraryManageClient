@@ -4,7 +4,7 @@
     <string name="username">用户名：</string>
     <string name="login">登录</string>
     <string name="exit_login">退出登录</string>
-    <string name="input_username_hint">请输入用户名</string>
+    <string name="input_username_hint">请输入学号</string>
     <string name="activity_name_manager">管理员</string>
     <string name="input_password_hint">请输入密码</string>
     <string name="library_about">本馆介绍</string>
@@ -28,4 +28,15 @@
     <string name="not_found_file">未找到文件</string>
     <string name="menu_text_student_info">个人信息</string>
     <string name="menu_text_borrow_record">借阅记录</string>
+    <string name="dialog_title_config">初始化配置</string>
+    <string name="http_format">http://%s:7001</string>
+    <string name="input_base_ip_hint">请输入服务器ip地址</string>
+    <string name="input_base_ip_hint_eg">服务器ip如:192.168.1.1</string>
+    <string name="connect_sul">连接成功！</string>
+    <string name="not_found_ip_service">未找到指定ip下的服务器</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="library_about_info">济宁学院图书馆于2005年12月建成，2006年3月投入使用，建筑面积3.83万㎡。馆藏纸质图书166.84万册，中外文期刊近1339种，中文报纸32种，电子图书90万余种，电子期刊3.75万种，优秀博硕士论文329万余篇，爱思唯尔ScienceDirect数据库、EBSCO系列数据库、中国知网系列全文数据库、万方数据知识服务平台、新东方多媒体学习库、VIPexam网络学习资源数据库、网上报告厅、就业培训数据库等数据库17个。与国内外多家高校图书馆建立了文献资源共建共享协作关系。图书馆设有23个融文献“借、阅、藏”于一体的图书借阅室、报刊阅览室，全部实现全开架管理服务模式，设有报告厅、多功能厅各一个，专家研讨室、学习研读室10个，可为读者提供多方位的优质服务。
+图书馆全体员工秉承“读者第一、服务至上”的理念，坚持“爱国、爱馆、爱书、爱人”的职业精神，不断提高自身业务素质和服务应用型人才培养的水平，努力将图书馆建设成为设施先进、功能齐全、文化浓厚、特色鲜明的文献信息资源中心。
+</string>
 </resources>

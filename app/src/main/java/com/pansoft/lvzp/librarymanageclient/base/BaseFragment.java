@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.List;
+
 /**
  * Created by lv_zhp on 2018/4/30.
  */
@@ -72,5 +76,13 @@ public abstract class BaseFragment<D extends ViewDataBinding>
     public void setOnClickListener(View.OnClickListener listener, View... views) {
         if (getActivity() != null)
             ((BaseActivity) getActivity()).setOnClickListener(listener, views);
+    }
+
+    protected <T> T getDataBean(Object data, Class<T> cls) {
+        return JSON.parseObject(JSON.toJSONString(data), cls);
+    }
+
+    protected <T> List<T> getListDataBean(Object data, Class<T> cls) {
+        return JSON.parseArray(JSON.toJSONString(data), cls);
     }
 }

@@ -2,6 +2,7 @@ package com.pansoft.lvzp.librarymanageclient.adapter;
 
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.pansoft.lvzp.librarymanageclient.R;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingBaseRecycleAdapter;
 import com.pansoft.lvzp.librarymanageclient.base.adapter.BindingViewHolder;
@@ -28,6 +29,7 @@ public class BookListAdapter extends BindingBaseRecycleAdapter<BookListItemBean,
     protected void bindingViews(final BindingViewHolder<ItemLayoutSearchBooklistBinding> holder, final int position, BookListItemBean itemBean) {
         final ItemLayoutSearchBooklistBinding binding = holder.getBinding();
         binding.setBookItemBean(itemBean);
+        Glide.with(binding.getRoot().getContext()).load(itemBean.getImgUrl()).into(binding.ivBookImage);
         binding.llBookInfoParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
